@@ -1,0 +1,12 @@
+Used this SQL query in order to find genre revenue in descending order. 
+
+SELECT name AS genre,
+  COUNT(name) AS genre_rent_total
+  SUM(amount) AS genre_revenue
+FROM category
+INNER JOIN film_category ON film_category.category_id = category.category_id
+INNER JOIN inventory ON inventory.film_id = film_category.film_id
+INNER JOIN rental ON rental.inventory_id = inventory.inventory_id
+INNER JOIN payment ON payment.rental_id = rental.rental_id
+GROUP BY name
+ORDER BY genre_revenue DESC
